@@ -21,15 +21,20 @@ public class Pattern
     public void userinput()
     {
         Pattern fea[]=new Pattern[100];
-        fea[0]=new Pattern("AD");
-        fea[0].input(fea[0], "1-1", 17, 139);
-        fea[0].input(fea[0], "2-2", 1345, 193);
-        fea[0].input(fea[0], "3-6", 12, 319);
+        fea[0]=new Pattern("A");
+        fea[0].input(fea[0], "1", 17, 139);
+        fea[0].input(fea[0], "2", 1345, 193);
+        fea[0].input(fea[0], "3", 12, 319);
         fea[1]=new Pattern("C");
         fea[1].input(fea[1], "11", 145, 9);
         fea[1].input(fea[1], "12", 1, 1);
         fea[1].input(fea[1], "14", 3, 19);
+        fea[2]=new Pattern("B");
+        fea[2].input(fea[2], "4", 15, 19);
+        fea[2].input(fea[2], "5", 12, 11);
+        fea[2].input(fea[2], "6", 30, 29);
         fea[1].join(fea[1], fea[0]);
+        fea[1].join(fea[0], fea[2]);
     }
     public void join(Pattern A, Pattern B)
     {
@@ -49,6 +54,7 @@ public class Pattern
                  //System.out.println(keys1+" "+val1.get(0)+" "+keys2+" "+val2.get(0));
                  String keys=keys1+"-"+keys2,fe=A.feature+B.feature;
                  String[] k = keys.split("-");
+                 int n=k.length;
                  String[] f = fe.split("");
                  //System.out.print(fe+" ");
                  for(int i=0;i<f.length;i++)
@@ -83,13 +89,85 @@ public class Pattern
         }
         Pattern p=null;
         ArrayList<Integer> x = new ArrayList<Integer>();
+        HashMap<String, ArrayList<Integer>> keylocal=new HashMap<>();
         for (int i = 0; i < xyz.size(); i++)
         {
              //System.out.println(abc.get(i).feature +" "+ xyz.get(i));
-             key.put(xyz.get(i), x);
+             keylocal.put(xyz.get(i), x);
              p=abc.get(i);
         }
-        instance.put(p, key);
+        instance.put(p, keylocal);
+    }
+    public boolean participation(double dist, String rowinstance, Pattern f)
+    {
+        String featureinstance=f.feature;
+        String[] rowinst = rowinstance.split("-");
+        String[] featureList = featureinstance.split("");
+        int n=featureList.length;
+        ArrayList<ArrayList<Integer>> coordinates= new ArrayList<>();
+        for(int i=0;i<n;i++)
+        {
+            Pattern obj=new Pattern(featureList[i]);
+            ArrayList<Integer> x=validList(rowinst[i], obj);
+            //System.out.println(obj.feature+" "+rowinst[i]);//+" "+x.get(0)
+            coordinates.add(x);
+        }
+        for(int i=0;i<coordinates.size();i++)
+        {
+            for(int j=0;j<coordinates.size();j++)
+            {
+                System.out.println(coordinates.get(i).get(0)+","+coordinates.get(j).get(0));
+                if(i!=j)
+                {
+                    double distance= Math.sqrt( (coordinates.get(i).get(0)-coordinates.get(j).get(0))^2 + (coordinates.get(i).get(1)-coordinates.get(j).get(1))^2);
+                    if(distance > dist)
+                    return false;
+                }
+            }
+        }
+        //System.out.println(coordinates.get(0).get(0));keymp2
+        return true;
+    }
+    public ArrayList<Integer> validList(String rowinstance, Pattern f)
+    {
+        String featureinstance=f.feature;
+        String[] rowinst = rowinstance.split("-");
+        String[] featureList = featureinstance.split("");
+        int n=featureList.length;
+        ArrayList<ArrayList<Integer>> coordinates= new ArrayList<>();
+        ArrayList<Integer> x=new ArrayList<>();
+        for(Map.Entry<Pattern, HashMap<String, ArrayList<Integer>>> mp1 :instance.entrySet()) 
+        {
+             Pattern keys1 = mp1.getKey();
+             //System.out.println("1."+ keys1.feature + "    "+f.feature);
+             HashMap<String, ArrayList<Integer>> hash=mp1.getValue();
+             for(Map.Entry<String, ArrayList<Integer>> mp2 :hash.entrySet())  
+             {
+                 String keymp2=mp2.getKey();
+                 //System.out.println("2."+ keymp2+ "    "+rowinstance);
+                 String a=f.feature.trim(),b = keys1.feature.trim(), c=rowinstance.trim(), d=keymp2.trim();
+                 if(c.equals(d) && a.equals(b))
+                 {
+                     //System.out.println("New Loop");
+                     x = mp2.getValue();
+                     //System.out.println("2. "+x.get(0));
+                 }
+             }
+        }
+        for(int i=0;i<x.size();i++)
+        {
+            //System.out.println("2. "+x.get(i));
+        }
+        return x;
+        /*for(int i=0;i<coordinates.size();i++)
+        {
+            ArrayList<Integer> x=coordinates.get(i);
+            //System.out.println("Lat and long are "+x.get(0)+","+x.get(1));
+            for(int j=0;j<x.size();j++)
+            {
+                System.out.println(j+","+x.get(j));
+            }
+        }*/
     }
     void display()
     {
@@ -101,7 +179,7 @@ public class Pattern
              for(Map.Entry<String, ArrayList<Integer>> mp2 :hash.entrySet())  
              {
                  String keymp2=mp2.getKey();
-                  ArrayList<Integer> x = mp2.getValue();
+                 ArrayList<Integer> x = mp2.getValue();
                  System.out.println("2. "+keymp2);
                  for(int i = 0; i < x.size(); i++)
                  {
@@ -110,11 +188,30 @@ public class Pattern
              }
         }
     }
-    public static  void main(String[] args)
+    public static  void main()
     {
-        Pattern obj=new Pattern("Object");
+        Pattern obj=new Pattern("ABC");
         obj.userinput();
-        obj.display();
+        boolean result=obj.participation(1000, "2-4-11", obj);
+        System.out.print(result);
+        //obj.display();
     }
 }
+/*
+ * Pattern fea[]=new Pattern[100];
+        fea[0]=new Pattern("A");
+        fea[0].input(fea[0], "1", 17, 139);
+        fea[0].input(fea[0], "2", 1345, 193);
+        fea[0].input(fea[0], "3", 12, 319);
+        fea[1]=new Pattern("C");
+        fea[1].input(fea[1], "11", 145, 9);
+        fea[1].input(fea[1], "12", 1, 1);
+        fea[1].input(fea[1], "14", 3, 19);
+        fea[2]=new Pattern("B");
+        fea[2].input(fea[2], "4", 15, 19);
+        fea[2].input(fea[2], "5", 12, 11);
+        fea[2].input(fea[2], "6", 30, 29);
+        fea[1].join(fea[1], fea[0]);
+        fea[1].join(fea[0], fea[2]);
+        */
 
