@@ -1,10 +1,13 @@
 import java.util.*;
 import java.sql.*;
-public class Pattern 
+import java.time.Duration;
+import java.time.Instant;
+import java.io.*;
+public class Pattern implements Serializable
 {
     int counter=1;
     String feature;
-    int dist=15;
+    int dist=20;
     static HashMap<Pattern, HashMap<String, ArrayList<Integer>>> instance=new HashMap<Pattern, HashMap<String, ArrayList<Integer>>>();
     HashMap<String, ArrayList<Integer>> key=new HashMap<>();
     public Pattern(String feature)
@@ -27,8 +30,8 @@ public class Pattern
                 ResultSet tables = dbm.getTables(null, null, Feature.feature, null);
                 if (tables.next()) {
                     // Table exists
-                    //System.out.println("Exists");
                     String sql="INSERT INTO "+Feature.feature+"(row, x, y) VALUES ('"+Feature.feature+index+"', "+x+", "+y+")";
+                    //System.out.println(sql);
                     stmt.executeUpdate(sql);
                 }
                 else {
@@ -58,10 +61,37 @@ public class Pattern
         key.put(index, a1);
         instance.put(Feature, key);
     }
-    public void userinput()
+    public void userinput() throws Exception
     {
+        int counter=0;
         Pattern fea[]=new Pattern[10000];
-        fea[0]=new Pattern("a");
+        HashMap<String, Integer> map=new HashMap<String, Integer>();
+        FileReader fr=new FileReader("C:\\Users\\Bodhisatwa\\Desktop\\test.txt");    
+        BufferedReader br=new BufferedReader(fr);    
+        int i;    
+        while((i=br.read())!=-1){  
+            String line =br.readLine(); 
+            String lin[]=line.split(" ");
+            //for(int j=0;j<lin.length;j++)
+            //{
+                //System.out.print(lin[j]+j+" ");
+            //}
+            //System.out.println();
+            if(map.containsKey(lin[0]))
+            {
+                fea[map.get(lin[0])].input(fea[map.get(lin[0])], lin[1], Integer.parseInt(lin[2]), Integer.parseInt(lin[3]));
+            }
+            else
+            {
+                map.put(lin[0], counter);
+                fea[counter]=new Pattern(lin[0]);
+                fea[counter].input(fea[counter], lin[1], Integer.parseInt(lin[2]), Integer.parseInt(lin[3]));
+                counter++;
+            }
+        }  
+        br.close();    
+        fr.close(); 
+        /*fea[0]=new Pattern("a");
         fea[0].input(fea[0], "1", 17, 19);
         fea[0].input(fea[0], "2", 1345, 193);
         fea[0].input(fea[0], "3", 12, 319);
@@ -80,7 +110,7 @@ public class Pattern
         fea[5]=new Pattern("e");
         fea[5].input(fea[5], "2", 15, 14);
         fea[5].input(fea[5], "7", 11, 31);
-        fea[5].input(fea[5], "8", 41, 60);
+        fea[5].input(fea[5], "8", 41, 60);*/
         String str="";
         for(Map.Entry<Pattern, HashMap<String, ArrayList<Integer>>> mp1 :instance.entrySet()) 
         {
@@ -88,21 +118,16 @@ public class Pattern
             str+=keys1.feature;
         }
         String feat=participation(new Pattern(str));
-        //System.out.println(feat);
         int size=2;
         int k=100;
         ArrayList<String> ans=new ArrayList<String>();
-        //System.out.println("*********Renguku*************");
-        for(int i=size;i<=feat.length();i++)
+        for(i=size;i<=feat.length();i++)
         {
             generate(feat, i, "", ans, 0);
         }
-        //System.out.println("*********1Renguku1*************");
-        for(int i=0;i<ans.size();i++)
+        for(i=0;i<ans.size();i++)
         {
             
-            //System.out.println("*********2Renguku2*************");
-            //System.out.println(ans.get(i));
             fea[i+k]=new Pattern(ans.get(i));
             fea[i+k].greaterjoin(fea[i+k]);
         }
@@ -112,8 +137,10 @@ public class Pattern
         //fea[1].join(fea[4], fea[0]);
         // fea[4]=new Pattern("ac");
     }
-    public void result()
+    public static  void  main(String[] args) throws Exception
     {
+        Pattern obj=new Pattern("abc");
+        long start1 = System.nanoTime();
         Connection conn = null;
         try 
         { 
@@ -129,43 +156,6 @@ public class Pattern
                 //ResultSet tables = dbm.getTables(null, null, Feature.feature, null);
                 ResultSet tables = metaData.getTables(null, null, "%", types);
                 while (tables.next()) {
-                    //System.out.println(tables.getString("TABLE_NAME"));
-                    //String sql="Drop table "+tables.getString("TABLE_NAME");
-                    //stmt.executeUpdate(sql);
-                }
-                
-            }
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-    public static  void main(String[] args)
-    {
-        Connection conn = null;
-        try 
-        { 
-            String dbURL2 = "jdbc:postgresql://localhost:5432/Pattern";
-            String user = "postgres";
-            String pass = "ABcd1234#";
-            conn = DriverManager.getConnection(dbURL2, user, pass);
-            if (conn != null) {
-                //
-                Statement stmt = conn.createStatement();
-                DatabaseMetaData metaData = conn.getMetaData();
-                String[] types = {"TABLE"};
-                //ResultSet tables = dbm.getTables(null, null, Feature.feature, null);
-                ResultSet tables = metaData.getTables(null, null, "%", types);
-                while (tables.next()) {
-                    //System.out.println(tables.getString("TABLE_NAME"));
                     String sql="Drop table "+tables.getString("TABLE_NAME");
                     stmt.executeUpdate(sql);
                 }
@@ -183,18 +173,73 @@ public class Pattern
                 ex.printStackTrace();
             }
         }
-        Pattern obj=new Pattern("abc");
+        //Pattern obj=new Pattern("abc");
         obj.userinput();
+        //obj.writer();
+        //obj.display();
+        obj.result();
+        long end1 = System.nanoTime();      
+        System.out.println("Elapsed Time in nano seconds: "+ (end1-start1));  
     }
+    public void result()
+    {
+        ArrayList<String> list=new ArrayList<String>();
+        int ma=0; 
+        Connection conn = null;
+        try 
+        { 
+            String dbURL2 = "jdbc:postgresql://localhost:5432/Pattern";
+            String user = "postgres";
+            String pass = "ABcd1234#";
+            conn = DriverManager.getConnection(dbURL2, user, pass);
+            if (conn != null) {
+                //
+                Statement stmt = conn.createStatement();
+                DatabaseMetaData metaData = conn.getMetaData();
+                String[] types = {"TABLE"};
+                //ResultSet tables = dbm.getTables(null, null, Feature.feature, null);
+                ResultSet tables = metaData.getTables(null, null, "%", types);
+                while (tables.next()) {
+                    if(tables.getString("TABLE_NAME").length()>ma)
+                    {
+                        ma=tables.getString("TABLE_NAME").length();
+                        list.clear();
+                        list.add(tables.getString("TABLE_NAME"));
+                    }
+                    else if(tables.getString("TABLE_NAME").length()==ma)
+                    {
+                        list.add(tables.getString("TABLE_NAME"));                
+                    }
+                    //String sql="Drop table "+tables.getString("TABLE_NAME");
+                    //stmt.executeUpdate(sql);
+                }
+                
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        for(int i=0;i<list.size();i++)
+        {
+            System.out.println(list.get(i));
+        }  
+    } 
+    
     void generate(String feat, int size, String str, ArrayList<String> ans, int x)
     {
-        //System.out.println(x+"*********Renguku*************"+str);
         if(size==0)
         {
             ans.add(str);
             return ;
         }
-        //System.out.println(x+"*********1Renguku1*************"+str);
         for(int i=x;i<feat.length();i++)
         {
             char ch=feat.charAt(i);
@@ -249,7 +294,6 @@ public class Pattern
                             {
                                 coordinates.add(x1);
                                 coordinates.add(y1);
-                                //System.out.println(row+" "+f[i]+arr[i]+" "+x1+" "+y1);
                             }
                         }
                     
@@ -260,8 +304,8 @@ public class Pattern
                         for(int l=1;l<arr.length;l++)
                         {
                             str+="-"+f[l]+arr[l];
-                            System.out.println(f[l]+" "+arr[l]);
                         }
+                        System.out.println(str);
                         Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY, 
                         ResultSet.HOLD_CURSORS_OVER_COMMIT);
@@ -271,35 +315,29 @@ public class Pattern
                             // Table exists
                             //
                             String sql="INSERT INTO "+ feature2 +"(row) VALUES ('"+str+"')";
-                            //System.out.println(sql);
+                         
                             stmt.executeUpdate(sql);
                         }
                         else {
                             // Table does not exist
                             String sql = "CREATE TABLE "+feature2+" (row VARCHAR(1023) not NULL PRIMARY KEY)";
-                            //System.out.println(sql); 
+              
                             stmt.executeUpdate(sql);
                             sql="INSERT INTO "+feature2+"(row) VALUES ('"+str+"' )";
-                            //System.out.println(sql);
                             stmt2.executeUpdate(sql);
                         }
-                        //System.out.println(str);
                     /*for(int i=0;i<coordinates.size();i+=1)
                     {
-                        System.out.println(coordinates.get(i));
                         //for(int j=0;j<coordinates.size();j+=2)
                         {
                             //double x1=coordinates.get(i), x2=coordinates.get(j), y1=coordinates.get(i), y2=coordinates.get(j);
                             //double distance= Math.sqrt( Math.pow((x1-x2),2) +  Math.pow((y1-y2),2));
-                            //System.out.println(distance+" "+x1+" "+x2+" "+y1+" "+y2);
                             //if(distance > dist)
                             {
-                                //System.out.println("Invalid");                   
                             }
                         }
                     }  */
                     }
-                 
                 }
             }
         }
@@ -325,16 +363,13 @@ public class Pattern
         }
         for(int i=xi;i<n;i++)
         {
-            //System.out.println(size+"********************1Rengoku1********************************");
             HashMap<String, ArrayList<Integer>> hash=null;
             for(Map.Entry<Pattern, HashMap<String, ArrayList<Integer>>> mp1 :instance.entrySet()) 
             {
                 Pattern keys1 = mp1.getKey();
-                //System.out.println(i+"********************2Rengoku2********************************");
                 if(keys1.feature.equals(ob[i].feature))
                 {
                     hash=instance.get(keys1);
-                    //System.out.println(keys1.feature);
                 }
             }
             ArrayList<String> list=new ArrayList<>();
@@ -343,18 +378,14 @@ public class Pattern
                 String keymp2=mp2.getKey();
                 ArrayList<Integer> x=mp2.getValue();
                 list.add(keymp2);
-                //System.out.println("2. "+keymp2);
             }
             for (int j=0; j<list.size();j++)
             {
                 int klen=list.get(j).length();
-                //System.out.println("3. "+list.get(j) + " ");
                 str+=list.get(j)+"-";
-                //System.out.println(str);
                 backtrack(ans, ob, size-1, str, xi+1, n);
                 int len=str.length();
                 //xi--;
-                //System.out.println(str+" "+str.substring(0, len-2));
                 str=str.substring(0, len-1-klen);
             }
             return ;
@@ -371,7 +402,6 @@ public class Pattern
                 String a=keys1.feature.trim(),b = keys2.feature.trim(), c=A.feature.trim(), d = B.feature.trim();
                 if(c.equals(a) && d.equals(b))
                 {
-                    //System.out.println(a+" "+b);
                     join(keys1, keys2);
                     return ;
                 }
@@ -423,13 +453,11 @@ public class Pattern
                         int y2=Integer.parseInt(rset2.getString("y"));
                         double distance= Math.sqrt( Math.pow((x1-x2),2) +  Math.pow((y1-y2),2));
                         String r=rset.getString("row")+"-"+rset2.getString("row");
-                        //System.out.println("Dist "+distance+" "+r);
                         if(distance < dist)
                         {
                             Statement stmt3 = conn.createStatement(
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_READ_ONLY);
-                            //System.out.println("SQL "+distance+" "+r+" "+s);
                             stmt3.executeUpdate("INSERT INTO "+s+" VALUES ( '"+r +"',"+distance+")");
 
                         }
@@ -473,7 +501,6 @@ public class Pattern
             {
                 double x1=co.get(i), x2=co.get(j), y1=co.get(i+1), y2=co.get(j+1);
                 double distance= Math.sqrt( Math.pow((x1-x2),2) +  Math.pow((y1-y2),2));
-                //System.out.println(distance+" "+x1+" "+x2+" "+y1+" "+y2);
                 if(distance > dist)
                 {
                     return false;
@@ -491,45 +518,54 @@ public class Pattern
         {
             
              Pattern keys1 = mp1.getKey();
-             //System.out.println("1."+ keys1.feature + "    "+f.feature);
              HashMap<String, ArrayList<Integer>> hash=mp1.getValue();
              for(Map.Entry<String, ArrayList<Integer>> mp2 :hash.entrySet())  
              {
                  String keymp2=mp2.getKey();
-                 //System.out.println("2."+ keymp2+ "    "+rowinstance);
                  String a=f.feature.trim(),b = keys1.feature.trim(), c=rowinstance.trim(), d=keymp2.trim();
                  if(c.equals(d) && a.equals(b))
                  {
-                     //System.out.println("New Loop");
                      x = mp2.getValue();
-                     //System.out.println("2. "+x.get(0));
                  }
              }
              
         }
         for(int i=0;i<x.size();i++)
         {
-            //System.out.println("2. "+x.get(i));
         }
         return x;*/
     }
     void display()
     {
-        for(Map.Entry<Pattern, HashMap<String, ArrayList<Integer>>> mp1 :instance.entrySet()) 
+        try
         {
-            Pattern keys1 = mp1.getKey();
-            //System.out.println("1."+ keys1.feature);
-            HashMap<String, ArrayList<Integer>> hash=mp1.getValue();
-            for(Map.Entry<String, ArrayList<Integer>> mp2 :hash.entrySet())  
+            FileWriter geek_file;
+            geek_file = new FileWriter("C:\\Users\\Bodhisatwa\\Desktop\\test.txt");
+            BufferedWriter geekwrite = new BufferedWriter(geek_file);
+            for(Map.Entry<Pattern, HashMap<String, ArrayList<Integer>>> mp1 :instance.entrySet()) 
             {
-                String keymp2=mp2.getKey();
-                ArrayList<Integer> x = mp2.getValue();
-                //System.out.println("2. "+keymp2);
-                for(int i = 0; i < x.size(); i++)
+                Pattern keys1 = mp1.getKey();
+                HashMap<String, ArrayList<Integer>> hash=mp1.getValue();
+                for(Map.Entry<String, ArrayList<Integer>> mp2 :hash.entrySet())  
                 {
-                   //System.out.println("3. "+x.get(i));
+                    String keymp2=mp2.getKey();
+                    ArrayList<Integer> x = mp2.getValue();
+                    //for(int i = 0; i < x.size(); i++)
+                    {
+                        String str=" "+ keys1.feature+ " "+keymp2+ " "+x.get(0)+ " "+x.get(1);
+                        //System.out.println(str);
+                        // Initializing BufferedWriter
+                        geekwrite.write(str);
+                        geekwrite.newLine();
+                        
+                    }
                 }
             }
+            geekwrite.close();
+        }
+        catch (IOException except)
+        {
+            except.printStackTrace();
         }
     }
     
