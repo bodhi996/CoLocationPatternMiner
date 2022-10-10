@@ -83,9 +83,14 @@ Manager is used as a connection factory for creating JDBC connections.
 
 
 
-## Description of the codebase
+## Result
 
-<img src="assets/Icons/Screenshot%20(173).png" width="170" height="400"> <img src="assets/Icons/Screenshot%20(174).png" width="150" height="400"> 
+One of the crucial aims of the code was to reduce the time taken to generate
+the largest co-location pattern. Hence, let us have a brief look at the time
+taken for variations in feature type and row instances.
+An extract of the over all data set will be:
+
+<img src="1.png" width="170" height="400"> <img src="1.png" width="150" height="400"> 
 <img src="assets/Icons/Screenshot%20(175).png" width="170" height="400"><img src="assets/Icons/Screenshot%20(178).png" width="150" height="400">&nbsp;<img src="assets/Icons/Screenshot%20(176).png" width="170" height="400">
        
 The code is well arranged into sub-directories which are -
