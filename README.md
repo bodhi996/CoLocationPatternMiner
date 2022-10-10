@@ -24,6 +24,7 @@ to find frequent patterns, correlations, associations, or causal structures
 from data sets found in various kinds of databases such as relational
 databases, transactional databases, and other forms of data
 repositories.
+<img src="1.png" width="240" height="200">
 Given a set of transactions, association rule mining aims to find the rules
 which enable us to predict the occurrence of a specific item based on
 the occurrences of the other items in the transaction.
@@ -90,7 +91,7 @@ the largest co-location pattern. Hence, let us have a brief look at the time
 taken for variations in feature type and row instances.
 An extract of the over all data set will be:
 
-<img src="1.png" width="200" height="200">
+
 <img src="assets/Icons/Screenshot%20(175).png" width="170" height="400"><img src="assets/Icons/Screenshot%20(178).png" width="150" height="400">&nbsp;<img src="assets/Icons/Screenshot%20(176).png" width="170" height="400">
        
 The code is well arranged into sub-directories which are -
