@@ -19,6 +19,31 @@ Earth. Examples of spatial features include plant species and crime.
 Extracting these patterns from spatial data is very difficult due to the
 complexity of spatial data types, spatial relationships, and spatial autocorrelation. Co-location rules are models to infer the presence of spatial
 features in the neighbourhood of instances of other spatial features. 
+1. Association Rule: Association rule mining is a procedure which is meant
+to find frequent patterns, correlations, associations, or causal structures
+from data sets found in various kinds of databases such as relational
+databases, transactional databases, and other forms of data
+repositories.
+Given a set of transactions, association rule mining aims to find the rules
+which enable us to predict the occurrence of a specific item based on
+the occurrences of the other items in the transaction.
+So, in a given transaction with multiple items, it tries to find the rules
+that govern how or why such items are often bought together. For
+example, peanut butter and jelly are often bought together because a
+lot of people like to make PB&J sandwiches. 
+2. Apriori Estimation: Apriori is an algorithm for frequent item set mining
+and association rule learning over relational databases. It proceeds by
+identifying the frequent individual items in the database and extending
+them to larger and larger item sets as long as those item sets appear
+sufficiently often in the database. The frequent item sets determined by
+Apriori can be used to determine association rules which highlight
+general trends in the database: this has applications in domains such as
+market basket analysis.
+Apriori performs market basket analysis by discovering co-occurring
+items (frequent itemsets) within a set. Apriori finds rules with support
+greater than specified minimum support and confidence greater than
+specified minimum confidence. 
+
 
 ## Example of Application Domain
 
