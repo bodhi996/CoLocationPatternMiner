@@ -90,7 +90,7 @@ the largest co-location pattern. Hence, let us have a brief look at the time
 taken for variations in feature type and row instances.
 An extract of the over all data set will be:
 
-<img src="1.png" width="170" height="100">
+<img src="1.png" width="200" height="200">
 <img src="assets/Icons/Screenshot%20(175).png" width="170" height="400"><img src="assets/Icons/Screenshot%20(178).png" width="150" height="400">&nbsp;<img src="assets/Icons/Screenshot%20(176).png" width="170" height="400">
        
 The code is well arranged into sub-directories which are -
