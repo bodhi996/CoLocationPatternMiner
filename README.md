@@ -19,7 +19,7 @@ Earth. Examples of spatial features include plant species and crime.
 Extracting these patterns from spatial data is very difficult due to the
 complexity of spatial data types, spatial relationships, and spatial autocorrelation. Co-location rules are models to infer the presence of spatial
 features in the neighbourhood of instances of other spatial features. 
-1. Association Rule: Association rule mining is a procedure which is meant
+1. ```Association Rule```: Association rule mining is a procedure which is meant
 to find frequent patterns, correlations, associations, or causal structures
 from data sets found in various kinds of databases such as relational
 databases, transactional databases, and other forms of data
@@ -31,7 +31,7 @@ So, in a given transaction with multiple items, it tries to find the rules
 that govern how or why such items are often bought together. For
 example, peanut butter and jelly are often bought together because a
 lot of people like to make PB&J sandwiches. 
-2. Apriori Estimation: Apriori is an algorithm for frequent item set mining
+2. ```Apriori Estimation```: Apriori is an algorithm for frequent item set mining
 and association rule learning over relational databases. It proceeds by
 identifying the frequent individual items in the database and extending
 them to larger and larger item sets as long as those item sets appear
@@ -52,7 +52,7 @@ the code. The tools I have designed extensively used are JDK to develop code
 in the java environment, VS Code as the IDE, Postgres SQL database primarily
 for storing the feature types and their row instance, and finally the JDBC to
 integrate the JDK environment with Postgres environment.
-1. Java Development Kit: Or JDK as it is popularly called is a distribution of the
+1. ```Java Development Kit```: Or JDK as it is popularly called is a distribution of the
 Java Technology by the Oracle company. It implements the Java Virtual
 Machine or JVM as it is popularly called which allows Java to function as a
 platform independent programming language. It basically provides software
@@ -61,19 +61,19 @@ machine, compiler, debugger, performance monitoring tools, etc.
 The JDK also comes with a complete Java Runtime Environment (JRE), usually
 called a private runtime. Copies of JDK also include a wide selection of
 programs capable of enumerating most Java APIs.
-2. VisualStudios Code: VS code is an integrated development environment
+2. ```VisualStudios Code```: VS code is an integrated development environment
 provided by Microsoft to develop computer programs, website, mobile
 application development, and web services. Visual Studio includes a code
 editor supporting code refactoring. It allows editing and debugging in almost
 36 languages the likes of which include C++, Java, Javascript, SQL, Bash, HTML,
 etc. 
-3. PostGres SQL: Also referred as Postgres, is an open-source relational database.
+3. ```PostGres SQL```: Also referred as Postgres, is an open-source relational database.
 Initially, I planned to use PostGIS for implementation of the spatial
 neighbourhood relation. However, since the Co-location pattern miner I
 designed didn’t require such a thing, I stuck to Postgres SQL. Postgres features
 Atomicity, Consistency, Isolation, Durability as its properties and automatically
 update views, triggers, foreign keys, and stored procedure.
-4. Java Database Connectivity: Or JDBC as its popularly called is an Application
+4. ```Java Database Connectivity``` : Or JDBC as its popularly called is an Application
 Programming Interface that allows Java users to manage access to databases.
 It is a Java-based data access technology used for Java database connectivity.
 JDBC allows multiple implementations to exist and be used by the same
@@ -81,20 +81,7 @@ application. The API provides a mechanism for dynamically loading the correct
 Java packages and registering them with the JDBC Driver Manager. The Driver
 Manager is used as a connection factory for creating JDBC connections. 
 
-## Example of Application Domain
 
-The idea of the project is as an intra-organizational employment-oriented service that operates via mobile apps. 
-The organisation that we have used as a test case is BIT Mesra, however, it can be oriented towards any other organisation as well. The main goal is to bring convenience to freelancers and startups by hiring people from within the community from where they are based.<br />
-The app can be handy to foster the experience of networking to those who have no prior industry experience and also to those looking for a cost competitive employability from within their organizational structure. 
-
-# Achievements
-
-Our application boasts of several features:
-1. The application differentiates between verified and non-verified users. The algorithm will give verification symbols to those who have been consistent users of this platform.
-2. The app also uses third party features such as Linkedin to give out users better depth into their prospective employees.
-3. The app provides for a basket so that the user can select multiple people at one time without having to go through the same process recursively. 
-4.  The app also provides for payment gateway so that the user doesn't have to deal with the hassle of negotiation and engaging with third party payments procedure. 
-5.  The user also has the feature of deleting any of this selection from the Cart/Basket page if he/she reconsiders their decision. 
 
 ## Description of the codebase
 
