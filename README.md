@@ -25,6 +25,12 @@ from data sets found in various kinds of databases such as relational
 databases, transactional databases, and other forms of data
 repositories.  
     
+    
+    
+    
+    
+    
+<img src="1.png" width="240" height="200">   
 Given a set of transactions, association rule mining aims to find the rules
 which enable us to predict the occurrence of a specific item based on
 the occurrences of the other items in the transaction.
@@ -36,8 +42,7 @@ lot of people like to make PB&J sandwiches.
                       
                       
                       
-                   
-<img src="1.png" width="240" height="200">                   
+                                   
 2. ```Apriori Estimation```: Apriori is an algorithm for frequent item set mining
 and association rule learning over relational databases. It proceeds by
 identifying the frequent individual items in the database and extending
