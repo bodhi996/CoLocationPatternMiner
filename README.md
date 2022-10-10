@@ -44,6 +44,42 @@ items (frequent itemsets) within a set. Apriori finds rules with support
 greater than specified minimum support and confidence greater than
 specified minimum confidence. 
 
+## Practical Implementation
+
+Till so far, we discussed the general algorithm and now we will look into the
+practical implementation of the same. Then we will be discussing the results of
+the code. The tools I have designed extensively used are JDK to develop code
+in the java environment, VS Code as the IDE, Postgres SQL database primarily
+for storing the feature types and their row instance, and finally the JDBC to
+integrate the JDK environment with Postgres environment.
+1. Java Development Kit: Or JDK as it is popularly called is a distribution of the
+Java Technology by the Oracle company. It implements the Java Virtual
+Machine or JVM as it is popularly called which allows Java to function as a
+platform independent programming language. It basically provides software
+for working of Java Application. Examples of the same include a virtual
+machine, compiler, debugger, performance monitoring tools, etc.
+The JDK also comes with a complete Java Runtime Environment (JRE), usually
+called a private runtime. Copies of JDK also include a wide selection of
+programs capable of enumerating most Java APIs.
+2. VisualStudios Code: VS code is an integrated development environment
+provided by Microsoft to develop computer programs, website, mobile
+application development, and web services. Visual Studio includes a code
+editor supporting code refactoring. It allows editing and debugging in almost
+36 languages the likes of which include C++, Java, Javascript, SQL, Bash, HTML,
+etc. 
+3. PostGres SQL: Also referred as Postgres, is an open-source relational database.
+Initially, I planned to use PostGIS for implementation of the spatial
+neighbourhood relation. However, since the Co-location pattern miner I
+designed didn’t require such a thing, I stuck to Postgres SQL. Postgres features
+Atomicity, Consistency, Isolation, Durability as its properties and automatically
+update views, triggers, foreign keys, and stored procedure.
+4. Java Database Connectivity: Or JDBC as its popularly called is an Application
+Programming Interface that allows Java users to manage access to databases.
+It is a Java-based data access technology used for Java database connectivity.
+JDBC allows multiple implementations to exist and be used by the same
+application. The API provides a mechanism for dynamically loading the correct
+Java packages and registering them with the JDBC Driver Manager. The Driver
+Manager is used as a connection factory for creating JDBC connections. 
 
 ## Example of Application Domain
 
