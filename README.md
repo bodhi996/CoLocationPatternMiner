@@ -33,6 +33,8 @@ that govern how or why such items are often bought together. For
 example, peanut butter and jelly are often bought together because a
 lot of people like to make PB&J sandwiches. 
                    <img src="1.png" width="240" height="200">
+                   
+                   
 2. ```Apriori Estimation```: Apriori is an algorithm for frequent item set mining
 and association rule learning over relational databases. It proceeds by
 identifying the frequent individual items in the database and extending
