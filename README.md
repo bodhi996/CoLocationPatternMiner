@@ -7,7 +7,20 @@ were bought together or which products were bought before the purchase of a part
 conversion rate of customers. A familiar example of effective data mining through association rule learning technique at Walmart is – finding that
 Strawberry pop-tarts sales increased by 7 times before a Hurricane. After Walmart identified this association between Hurricane and Strawberry poptarts through data mining, it places all the Strawberry pop-tarts at the checkouts before a hurricane.  
 
-## Idea
+## Co-Location Patterns
+
+Spatial co-location pattern mining refers to the task of discovering the group of
+objects or events that co-occur at many places. Co-location patterns represent
+subsets of spatial features whose instances are often located in close
+geographic proximity. Examples include symbiotic species and crime attractors
+(e.g., bars, misdemeanors, etc.). Boolean spatial features describe the
+presence or absence of geographic object types at different locations in a twodimensional or three-dimensional metric space, for example, the surface of the
+Earth. Examples of spatial features include plant species and crime.
+Extracting these patterns from spatial data is very difficult due to the
+complexity of spatial data types, spatial relationships, and spatial autocorrelation. Co-location rules are models to infer the presence of spatial
+features in the neighbourhood of instances of other spatial features. 
+
+## Example of Application Domain
 
 The idea of the project is as an intra-organizational employment-oriented service that operates via mobile apps. 
 The organisation that we have used as a test case is BIT Mesra, however, it can be oriented towards any other organisation as well. The main goal is to bring convenience to freelancers and startups by hiring people from within the community from where they are based.<br />
