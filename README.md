@@ -95,46 +95,4 @@ Manager is used as a connection factory for creating JDBC connections.
 
 
 
-## Result
 
-One of the crucial aims of the code was to reduce the time taken to generate
-the largest co-location pattern. Hence, let us have a brief look at the time
-taken for variations in feature type and row instances.
-An extract of the over all data set will be:
-
-
-<img src="assets/Icons/Screenshot%20(175).png" width="170" height="400"><img src="assets/Icons/Screenshot%20(178).png" width="150" height="400">&nbsp;<img src="assets/Icons/Screenshot%20(176).png" width="170" height="400">
-       
-The code is well arranged into sub-directories which are -
-1. The first page is the ```home``` page. 
-2. The second page is the ```product```catalogue page. 
-3. The third page is the ``` Cart/Basket``` page. 
-4. The fourth Page is the ```Connect With``` page so that the user can connect with prospective clients. 
-5. Finally, the fifth page is the ```payment``` gateway.
-
-# How to Run
-
-<img src="assets/Icons/10.png" width="5000" height="400">
-
-1. Make sure Flutter is installed in your system.
-2. Install Android in your system. 
-3. In the event you want to understand the installation process in detail [Youtube](https://www.youtube.com/watch?v=x0uinJvhNxI&t=5071s) will be very helpful
-4. For Windows 41:32 and for Linux/iOS 18:34.
-5. Open the repository in Android Studio.
-6. Crate an emulator in AVD manager. 
-7. Run the application.
-8. Create a new issue if you face any difficulties or call Bodhisatwa at 8910602015 or Safal at 9123169595
-
-## Team Mentor
-
-Saurav Priadarshini <br />
-Special thanks and appreciation to our mentor who entertained even our stupidest doubts without hesitation. 😁
-
-## Team Members
-
-<img src="assets/Icons/DS%20Back.png" width="170" height="170">
-
-
-## APK Version
-
-You can find the apk version of [Skill Hub](https://github.com/bodhi996/IEEE-Megaproject/blob/master/student_store/SkillHub.apk) here 
